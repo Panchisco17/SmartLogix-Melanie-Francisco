@@ -28,8 +28,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/actuator/health", "/actuator/info").permitAll()
-                        .requestMatchers("/api/**").authenticated()
-                        .anyRequest().denyAll()
+                        .requestMatchers("/api/orders/**").hasAuthority("ROLE_ORDER") // nueva funcionabilidad para la asignacion correcra del ROLE_ORDER
+                        .requestMatchers("/api/**").denyAll() // deniega si no se autentifica con ROLE_ORDER, para llegar a esa ruta debe estar autenticado con el rol correspondiente
+                        .anyRequest().denyAll() // en caso de no tener clara la ruta del controller
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 

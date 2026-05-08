@@ -28,6 +28,7 @@ public class DataSeedConfig {
             PasswordEncoder passwordEncoder,
             @Value("${smartlogix.seed.admin-password:admin123}") String adminPassword,
             @Value("${smartlogix.seed.user-password:user123}") String userPassword,
+            @Value("${smartlogix.seed.user-password:order123}") String orderPassword,
             @Value("${smartlogix.seed.warehouse-password:bodega123}") String warehousePassword) {
         return args -> {
             if (userRepository.count() == 0) {
@@ -38,6 +39,14 @@ public class DataSeedConfig {
                 admin.setRole(Role.ROLE_ADMIN);
                 admin.setEnabled(true);
                 userRepository.save(admin);
+
+                UserEntity order = new UserEntity();
+                admin.setUsername("order");
+                admin.setEmail("order@smartlogix.com");
+                admin.setPassword(passwordEncoder.encode(orderPassword));
+                admin.setRole(Role.ROLE_ORDER);
+                admin.setEnabled(true);
+                userRepository.save(order);
 
                 UserEntity user = new UserEntity();
                 user.setUsername("usuario");

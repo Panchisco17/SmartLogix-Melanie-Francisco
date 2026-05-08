@@ -6,5 +6,9 @@ package com.smartlogix.auth.domain;
 public enum Role {
     ROLE_USER,
     ROLE_ADMIN,
-    ROLE_WAREHOUSE_MANAGER
+    ROLE_WAREHOUSE_MANAGER,
+    ROLE_ORDER,
+    ROLE_SHIPMENT,
+    ROLE_INVENTORY
+
 }
